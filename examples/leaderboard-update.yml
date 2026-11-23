@@ -1,0 +1,44 @@
+# Self-hosted leaderboard update flow (docs/LEADERBOARD_OPS.md).
+# Copy this file to .github/workflows/leaderboard-update.yml in YOUR repo.
+# It runs the Ordeal leaderboard pipeline on a schedule and uploads the
+# regenerated leaderboard (leaderboard.json, index.html, and every
+# per-target scorecard) as a build artifact. It commits and pushes
+# NOTHING: publishing a score stays a human decision, after the
+# maintainer rerun window in docs/METHODOLOGY.md.
+name: leaderboard-update
+on:
+  schedule:
+    - cron: "0 6 * * 1"  # Mondays 06:00 UTC
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Only run this leaderboard slug (empty = all configured targets)"
+        required: false
+        default: ""
+permissions:
+  contents: read
+jobs:
+  leaderboard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install .
+      - name: Run the leaderboard pipeline
+        env:
+          # Only needed for llm: targets. The key is read from the
+          # environment by the adapter and never written to any file.
+          AGENTORDEAL_LLM_API_KEY: ${{ secrets.AGENTORDEAL_LLM_API_KEY }}
+          AGENTORDEAL_LLM_MODEL: ${{ vars.AGENTORDEAL_LLM_MODEL }}
+        run: |
+          if [ -n "${{ inputs.only }}" ]; then
+            python leaderboard/run_leaderboard.py --only "${{ inputs.only }}"
+          else
+            python leaderboard/run_leaderboard.py
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: leaderboard
+          path: leaderboard/

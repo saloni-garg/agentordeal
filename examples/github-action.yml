@@ -1,0 +1,12 @@
+# Example: gate your own agent in CI with AgentOrdeal.
+name: agent-ordeal
+on: [push, pull_request]
+jobs:
+  agentordeal:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: saloni-garg/agent-ordeal@v0.1.0  # placeholder until published
+        with:
+          target: "https://your-agent.example/run"
+          fail-under: "70"

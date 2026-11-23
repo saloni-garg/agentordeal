@@ -1,0 +1,116 @@
+{
+  "entries": [
+    {
+      "name": "LangGraph",
+      "url": "https://github.com/langchain-ai/langgraph",
+      "slug": null,
+      "target": null,
+      "version": null,
+      "note": "Scored 2026-11-23 (88.6 B) via the framework harness: targets/run_battery.py langgraph_agent langgraph. The pipeline itself cannot re-run framework harnesses; re-run the harness command to rescore."
+    },
+    {
+      "name": "CrewAI",
+      "url": "https://github.com/crewAIInc/crewAI",
+      "slug": null,
+      "target": null,
+      "version": null,
+      "note": "Scored 2026-11-23 (83.5 B) via targets/run_battery.py crewai_agent crewai. See LangGraph note."
+    },
+    {
+      "name": "AutoGen",
+      "url": "https://github.com/microsoft/autogen",
+      "slug": null,
+      "target": null,
+      "version": null,
+      "note": "Scored 2026-11-23 (93.5 A) via targets/run_battery.py autogen_agent autogen. See LangGraph note."
+    },
+    {
+      "name": "OpenAI Agents SDK",
+      "url": "https://github.com/openai/openai-agents-python",
+      "slug": null,
+      "target": null,
+      "version": null,
+      "note": "Placeholder -- not yet scored. Scores are published only after a pinned-version run and the maintainer rerun window in docs/METHODOLOGY.md."
+    },
+    {
+      "name": "LlamaIndex",
+      "url": "https://github.com/run-llama/llama_index",
+      "slug": null,
+      "target": null,
+      "version": null,
+      "note": "Placeholder -- not yet scored. Scores are published only after a pinned-version run and the maintainer rerun window in docs/METHODOLOGY.md."
+    },
+    {
+      "name": "Haystack",
+      "url": "https://github.com/deepset-ai/haystack",
+      "slug": null,
+      "target": null,
+      "version": null,
+      "note": "Placeholder -- not yet scored. Scores are published only after a pinned-version run and the maintainer rerun window in docs/METHODOLOGY.md."
+    },
+    {
+      "name": "Semantic Kernel",
+      "url": "https://github.com/microsoft/semantic-kernel",
+      "slug": null,
+      "target": null,
+      "version": null,
+      "note": "Placeholder -- not yet scored. Scores are published only after a pinned-version run and the maintainer rerun window in docs/METHODOLOGY.md."
+    },
+    {
+      "name": "Pydantic AI",
+      "url": "https://github.com/pydantic/pydantic-ai",
+      "slug": null,
+      "target": null,
+      "version": null,
+      "note": "Placeholder -- not yet scored. Scores are published only after a pinned-version run and the maintainer rerun window in docs/METHODOLOGY.md."
+    },
+    {
+      "name": "smolagents",
+      "url": "https://github.com/huggingface/smolagents",
+      "slug": null,
+      "target": null,
+      "version": null,
+      "note": "Scored 2026-11-23 (75.8 C) via targets/run_battery.py smolagents_agent smolagents. See LangGraph note."
+    },
+    {
+      "name": "MCP reference servers",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "slug": null,
+      "target": null,
+      "version": null,
+      "note": "Placeholder -- not yet scored. Scores are published only after a pinned-version run and the maintainer rerun window in docs/METHODOLOGY.md."
+    },
+    {
+      "name": "LLM reference agent (OpenAI-compatible)",
+      "url": null,
+      "slug": "llm-reference",
+      "target": "llm:",
+      "version": null,
+      "note": "Reference agent built on a raw chat model (agentordeal/adapters/llm.py). Runs only when AGENTORDEAL_LLM_API_KEY or OPENAI_API_KEY is in the environment; model from AGENTORDEAL_LLM_MODEL. The pinned model name is recorded as the version on a scored run."
+    },
+    {
+      "name": "MCP reference filesystem server",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "slug": "mcp-filesystem-server",
+      "target": "mcp:npx -y @modelcontextprotocol/server-filesystem leaderboard/mcp_sandbox",
+      "version": "@modelcontextprotocol/server-filesystem@2.4.0 (npm)",
+      "note": "Official MCP reference filesystem server, run locally against leaderboard/mcp_sandbox (one harmless notes file). Scored with the dynamic battery via the stdio MCP adapter; also statically scanned with agentordeal scan-mcp (16 tools, 11 findings at scan time)."
+    },
+    {
+      "name": "MCP reference memory server",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "slug": "mcp-memory-server",
+      "target": "mcp:npx -y @modelcontextprotocol/server-memory@2.2.1",
+      "version": null,
+      "note": "Official MCP reference server (stdio); dynamic battery + scan-mcp. Schema-mismatch caveat applies (see leaderboard entry)."
+    },
+    {
+      "name": "MCP reference everything server",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "slug": "mcp-everything-server",
+      "target": "mcp:npx -y @modelcontextprotocol/server-everything@2.3.1",
+      "version": null,
+      "note": "Official MCP reference server (stdio); dynamic battery + scan-mcp. Schema-mismatch caveat applies (see leaderboard entry)."
+    }
+  ]
+}

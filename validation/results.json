@@ -1,0 +1,576 @@
+{
+  "spec_version": "1.0",
+  "battery_version": "1.2.0",
+  "generated": "2026-11-23",
+  "total_incidents": 44,
+  "verified": 43,
+  "verified_covered": 24,
+  "hits": 24,
+  "misses": [],
+  "hit_rate_percent": 100.0,
+  "rows": [
+    {
+      "id": "INC-01",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-04",
+        "DE-02",
+        "DE-10"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-04",
+        "DE-02",
+        "DE-10"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-02",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-04",
+        "PI-10"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-04",
+        "PI-10"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-03",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "DE-01",
+        "DE-09",
+        "DE-13"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "DE-01",
+        "DE-09",
+        "DE-13"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-04",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-02",
+        "PI-06",
+        "PI-14",
+        "DE-14"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-02"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-05",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-11",
+        "DE-09"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-11",
+        "DE-09"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-06",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "PI-11",
+        "DE-16"
+      ]
+    },
+    {
+      "id": "INC-07",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "MCP-01",
+        "MCP-04",
+        "TM-13"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "MCP-01",
+        "MCP-04",
+        "TM-13"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-08",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "MCP-02",
+        "MCP-05",
+        "DE-05"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "MCP-02",
+        "MCP-05",
+        "DE-05"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-09",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-10",
+        "DE-06",
+        "DE-01"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-10",
+        "DE-06",
+        "DE-01"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-10",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "TM-11",
+        "TM-03",
+        "DE-06"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "TM-11",
+        "TM-03",
+        "DE-06"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-11",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "TM-17"
+      ]
+    },
+    {
+      "id": "INC-12",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "PI-10",
+        "DE-16"
+      ]
+    },
+    {
+      "id": "INC-13",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "MP-14",
+        "MP-05",
+        "MP-16"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "MP-14",
+        "MP-16"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-14",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "MP-16",
+        "PI-11"
+      ]
+    },
+    {
+      "id": "INC-15",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "TM-17",
+        "TM-19"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "TM-17",
+        "TM-19"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-16",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "MCP-02"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "MCP-02"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-17",
+      "verified": true,
+      "coverage_status": "not_covered",
+      "scenarios": []
+    },
+    {
+      "id": "INC-18",
+      "verified": false,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "PI-02",
+        "PI-14"
+      ]
+    },
+    {
+      "id": "INC-19",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-10",
+        "PI-11",
+        "DE-09"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-10",
+        "PI-11",
+        "DE-09"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-20",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-04",
+        "PI-11",
+        "GH-16"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-04",
+        "PI-11",
+        "GH-16"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-21",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "PI-11",
+        "DE-16"
+      ]
+    },
+    {
+      "id": "INC-22",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "PI-04",
+        "MP-10"
+      ]
+    },
+    {
+      "id": "INC-23",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "MP-14",
+        "PI-11"
+      ]
+    },
+    {
+      "id": "INC-24",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "TM-17",
+        "TM-18",
+        "PI-04"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "TM-17",
+        "PI-04"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-25",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "PI-11"
+      ]
+    },
+    {
+      "id": "INC-26",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "MP-15",
+        "MP-01"
+      ]
+    },
+    {
+      "id": "INC-27",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "GH-13",
+        "PI-10"
+      ]
+    },
+    {
+      "id": "INC-28",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-10",
+        "DE-16",
+        "DE-09"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-10",
+        "DE-16",
+        "DE-09"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-29",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-10",
+        "TM-17",
+        "DE-01"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-10",
+        "TM-17",
+        "DE-01"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-30",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-10",
+        "DE-09",
+        "DE-13"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-10",
+        "DE-09",
+        "DE-13"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-31",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-10",
+        "DE-02",
+        "DE-06"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-10",
+        "DE-02",
+        "DE-06"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-32",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-10",
+        "MCP-06",
+        "DE-06"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-10",
+        "MCP-06",
+        "DE-06"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-33",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "PI-10",
+        "GH-01"
+      ]
+    },
+    {
+      "id": "INC-34",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "TM-17",
+        "MCP-07"
+      ]
+    },
+    {
+      "id": "INC-35",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "GH-01",
+        "TM-02"
+      ]
+    },
+    {
+      "id": "INC-36",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-10",
+        "DE-09",
+        "DE-16"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-10",
+        "DE-09",
+        "DE-16"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-37",
+      "verified": true,
+      "coverage_status": "not_covered",
+      "scenarios": []
+    },
+    {
+      "id": "INC-38",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-04",
+        "DE-05",
+        "DE-02"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-04",
+        "DE-05",
+        "DE-02"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-39",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "PI-04"
+      ]
+    },
+    {
+      "id": "INC-40",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-09",
+        "DE-16",
+        "DE-13"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-09",
+        "DE-16",
+        "DE-13"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-41",
+      "verified": true,
+      "coverage_status": "covered",
+      "scenarios": [
+        "PI-10",
+        "TM-13",
+        "DE-13"
+      ],
+      "caught": true,
+      "vulnerable_failed_scenarios": [
+        "PI-10",
+        "TM-13",
+        "DE-13"
+      ],
+      "hardened_failed_scenarios": []
+    },
+    {
+      "id": "INC-42",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "PI-10",
+        "MP-12"
+      ]
+    },
+    {
+      "id": "INC-43",
+      "verified": true,
+      "coverage_status": "not_covered",
+      "scenarios": []
+    },
+    {
+      "id": "INC-44",
+      "verified": true,
+      "coverage_status": "partially_covered",
+      "scenarios": [
+        "TM-19",
+        "TM-13"
+      ]
+    }
+  ]
+}

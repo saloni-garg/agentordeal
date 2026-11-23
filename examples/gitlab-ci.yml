@@ -1,0 +1,79 @@
+# Example: gate your own agent in CI with AgentOrdeal -- GitLab CI.
+#
+# This is the GitLab CI equivalent of the GitHub Action in this
+# repository's root action.yml (used by examples/github-action.yml).
+# GitLab has no composite actions, so this file does by hand what the
+# action does: install agentordeal, run the battery, and publish the
+# results. Copy this file's job into your project's .gitlab-ci.yml.
+#
+# The four file outputs it produces, in agentordeal-out/ and uploaded
+# as job artifacts even when the job fails:
+#   - scorecard.json  -- the full scorecard (JSON)
+#   - scorecard.html  -- the human-readable HTML report
+#   - scorecard.sarif -- SARIF for code-scanning / security dashboards
+#   - badge.svg       -- the grade badge
+# It also exports the numeric score and letter grade as job variables
+# (AGENTORDEAL_SCORE / AGENTORDEAL_GRADE, via a dotenv report) for
+# downstream jobs, and the job fails when the score is under
+# AGENTORDEAL_FAIL_UNDER.
+#
+# Differences from the GitHub Action: there is no upload-artifact or
+# GITHUB_OUTPUT step -- GitLab artifacts and dotenv reports are the
+# equivalents used below. The action can also fall back to installing
+# from its own checkout before the first PyPI release; here, replace
+# `pip install agentordeal` with `pip install .` if you run this job
+# inside a checkout of the agent-ordeal repository itself.
+
+stages:
+  - test
+
+variables:
+  AGENTORDEAL_TARGET: "https://your-agent.example/run"
+  AGENTORDEAL_FAIL_UNDER: "70"
+  AGENTORDEAL_OUT: "agentordeal-out"
+
+agentordeal:
+  stage: test
+  image: python:3.12
+  script:
+    - pip install agentordeal
+    # --fail-under makes `agentordeal run` itself exit 1 when the
+    # score is under the threshold (see agentordeal/cli.py), which
+    # fails this job. The scorecard is parsed before that exit code
+    # is honoured, so the artifacts and dotenv report still exist.
+    - |
+      set +e
+      agentordeal run \
+        --target "$AGENTORDEAL_TARGET" \
+        --out "$AGENTORDEAL_OUT" \
+        --fail-under "$AGENTORDEAL_FAIL_UNDER" \
+        --format json \
+        --format html \
+        --format sarif \
+        --format badge
+      AGENTORDEAL_EXIT=$?
+      set -e
+      python3 - <<'PY'
+      import json, os
+      out = os.environ.get("AGENTORDEAL_OUT", "agentordeal-out")
+      card = json.load(open(os.path.join(out, "scorecard.json")))
+      with open(os.path.join(out, "score.env"), "w") as fh:
+          fh.write(f"AGENTORDEAL_SCORE={card['score']}\n")
+          fh.write(f"AGENTORDEAL_GRADE={card['grade']}\n")
+      print(f"AgentOrdeal score: {card['score']} (grade {card['grade']})")
+      PY
+      exit $AGENTORDEAL_EXIT
+  artifacts:
+    when: always
+    name: "agentordeal-scorecard"
+    paths:
+      - "$AGENTORDEAL_OUT/scorecard.json"
+      - "$AGENTORDEAL_OUT/scorecard.html"
+      - "$AGENTORDEAL_OUT/scorecard.sarif"
+      - "$AGENTORDEAL_OUT/badge.svg"
+      - "$AGENTORDEAL_OUT/score.env"
+    reports:
+      # Makes AGENTORDEAL_SCORE / AGENTORDEAL_GRADE available as
+      # variables to downstream jobs in the same pipeline.
+      dotenv: "$AGENTORDEAL_OUT/score.env"
+    expire_in: 30 days

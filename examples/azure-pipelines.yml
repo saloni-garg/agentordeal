@@ -1,0 +1,89 @@
+# Example: gate your own agent in CI with AgentOrdeal -- Azure Pipelines.
+#
+# This is the Azure Pipelines equivalent of the GitHub Action in this
+# repository's root action.yml (used by examples/github-action.yml).
+# Azure has no composite actions, so this file does by hand what the
+# action does: install agentordeal, run the battery, and publish the
+# results. Copy this file into your project as azure-pipelines.yml
+# (or copy its steps into your existing pipeline).
+#
+# The four file outputs it produces, in $(AgentOrdealOut) and
+# published as the pipeline artifact "agentordeal-scorecard" even
+# when the job fails:
+#   - scorecard.json  -- the full scorecard (JSON)
+#   - scorecard.html  -- the human-readable HTML report
+#   - scorecard.sarif -- SARIF for code-scanning / security dashboards
+#   - badge.svg       -- the grade badge
+# It also sets the numeric score as the output variable
+# AgentOrdealScore (and AgentOrdealGrade) on the "score" step below
+# (downstream jobs read it as dependencies.<job>.outputs
+# ['score.AgentOrdealScore']), and the job fails when the score is
+# under AGENTORDEAL_FAIL_UNDER.
+#
+# Differences from the GitHub Action: there is no upload-artifact or
+# GITHUB_OUTPUT step -- PublishPipelineArtifact and the ##vso logging
+# commands below are the equivalents. Azure Pipelines has no built-in
+# SARIF viewer, so the SARIF file is published as an artifact only.
+# The action can also fall back to installing from its own checkout
+# before the first PyPI release; here, replace
+# `pip install agentordeal` with `pip install .` if you run this job
+# inside a checkout of the agent-ordeal repository itself.
+
+trigger:
+  - main
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  AGENTORDEAL_TARGET: "https://your-agent.example/run"
+  AGENTORDEAL_FAIL_UNDER: "70"
+  AgentOrdealOut: "agentordeal-out"
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: "3.12"
+    displayName: "Use Python 3.12"
+
+  - script: pip install agentordeal
+    displayName: "Install agentordeal"
+
+  # --fail-under makes `agentordeal run` itself exit 1 when the
+  # score is under the threshold (see agentordeal/cli.py), which
+  # fails this step and the job. The score is read from the
+  # scorecard in the next step, which runs even on failure.
+  - script: |
+      agentordeal run \
+        --target "$(AGENTORDEAL_TARGET)" \
+        --out "$(AgentOrdealOut)" \
+        --fail-under "$(AGENTORDEAL_FAIL_UNDER)" \
+        --format json \
+        --format html \
+        --format sarif \
+        --format badge
+    name: run
+    displayName: "Run AgentOrdeal battery"
+
+  - script: |
+      python - <<'PY'
+      import json, os
+      out = os.environ["AGENTORDEAL_OUT_DIR"]
+      card = json.load(open(os.path.join(out, "scorecard.json")))
+      print(f"AgentOrdeal score: {card['score']} (grade {card['grade']})")
+      print(f"##vso[task.setvariable variable=AgentOrdealScore;isOutput=true]{card['score']}")
+      print(f"##vso[task.setvariable variable=AgentOrdealGrade;isOutput=true]{card['grade']}")
+      PY
+    name: score
+    displayName: "Export score as output variable"
+    condition: always()
+    env:
+      AGENTORDEAL_OUT_DIR: $(AgentOrdealOut)
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: "$(AgentOrdealOut)"
+      artifact: "agentordeal-scorecard"
+      publishLocation: "pipeline"
+    displayName: "Publish scorecard, HTML report, SARIF and badge"
+    condition: always()

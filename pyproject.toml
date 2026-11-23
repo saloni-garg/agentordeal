@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentordeal"
+version = "0.5.0"
+description = "Reference implementation of the AgentOrdeal Specification -- the benchmark that measures whether autonomous agents are actually safe"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [{name = "Saloni Garg"}]
+keywords = ["ai-agents","agent-security","benchmark","mcp","security","prompt-injection","red-teaming","evaluation","llm","autonomous-agents"]
+classifiers = ["Programming Language :: Python :: 3","Programming Language :: Python :: 3.10","Programming Language :: Python :: 3.11","Programming Language :: Python :: 3.12","Topic :: Security","Topic :: Scientific/Engineering :: Artificial Intelligence","Development Status :: 4 - Beta","Intended Audience :: Developers","Intended Audience :: Science/Research","Environment :: Console","Operating System :: OS Independent"]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+langgraph = ["langgraph>=0.2"]
+openai-agents = ["openai-agents>=0.1"]
+crewai = ["crewai>=0.80"]
+pydantic-ai = ["pydantic-ai>=0.1"]
+promptfoo = ["PyYAML>=6"]
+
+[project.scripts]
+agentordeal = "agentordeal.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/saloni-garg/agentordeal"
+Repository = "https://github.com/saloni-garg/agentordeal"
+Specification = "https://github.com/saloni-garg/agentordeal-spec"
+Leaderboard = "https://github.com/saloni-garg/agentordeal-leaderboard"
+Issues = "https://github.com/saloni-garg/agentordeal/issues"
+Changelog = "https://github.com/saloni-garg/agentordeal/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+include = ["agentordeal*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

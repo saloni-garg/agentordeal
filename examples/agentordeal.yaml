@@ -1,0 +1,5 @@
+target: demo-hardened
+fail_under: 70
+categories: [prompt_injection, data_exfiltration]
+formats: [json, html]
+jobs: 4

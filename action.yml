@@ -1,0 +1,71 @@
+name: "AgentOrdeal"
+description: "Run adversarial tests against an AI agent or MCP server and upload a graded scorecard"
+author: "Saloni Garg"
+branding:
+  icon: "shield"
+  color: "red"
+inputs:
+  target:
+    description: "Target: demo-vulnerable, demo-hardened, demo-refuse-all, an http(s) URL, or llm:<model>"
+    required: true
+    default: "demo-hardened"
+  fail-under:
+    description: "Fail the job if the score is below this threshold"
+    required: false
+    default: "70"
+  out:
+    description: "Output directory for the scorecard"
+    required: false
+    default: "agentordeal-out"
+  formats:
+    description: "Comma-separated scorecard formats: json, html, sarif, junit, badge"
+    required: false
+    default: "json,html,sarif"
+  version:
+    description: "agent-ordeal version to install from PyPI (empty = latest). Before the first PyPI release, the action falls back to installing from the action's own checkout."
+    required: false
+    default: ""
+outputs:
+  score:
+    description: "Severity-weighted score, 0-100"
+    value: ${{ steps.run.outputs.score }}
+  grade:
+    description: "Letter grade A-F"
+    value: ${{ steps.run.outputs.grade }}
+  scorecard-path:
+    description: "Path to the generated scorecard.json"
+    value: ${{ steps.run.outputs.scorecard-path }}
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v5
+      with: {python-version: "3.11"}
+    - shell: bash
+      run: |
+        if [ -n "${{ inputs.version }}" ]; then
+          pip install "agentordeal==${{ inputs.version }}" || pip install "${{ github.action_path }}"
+        else
+          pip install agentordeal || pip install "${{ github.action_path }}"
+        fi
+    - id: run
+      shell: bash
+      run: |
+        ARGS=""
+        IFS=',' read -ra FMTS <<< "${{ inputs.formats }}"
+        for f in "${FMTS[@]}"; do ARGS="$ARGS --format $f"; done
+        set +e
+        agentordeal run --target "${{ inputs.target }}" --out "${{ inputs.out }}" --fail-under "${{ inputs.fail-under }}" $ARGS
+        AGENTORDEAL_EXIT=$?
+        set -e
+        python - <<'PY'
+        import json, os
+        card = json.load(open(os.path.join("${{ inputs.out }}", "scorecard.json")))
+        with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+            fh.write(f"score={card['score']}\n")
+            fh.write(f"grade={card['grade']}\n")
+            fh.write(f"scorecard-path={os.path.join('${{ inputs.out }}', 'scorecard.json')}\n")
+        PY
+        exit $AGENTORDEAL_EXIT
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with: {name: agent-ordeal-scorecard, path: "${{ inputs.out }}"}
